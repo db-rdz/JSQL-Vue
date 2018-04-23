@@ -13,8 +13,14 @@
       <div class="extra content">
         <a>
           <i class="user icon"></i>
-          {{ this.getNumberOfRows }} Entries
+          {{ this.getNumberofRows }} Entries
         </a>
+      </div>
+    </div>
+    <div v-else>
+      <div class="ui segment">
+        <div class="ui active loader"></div>
+        <p></p>
       </div>
     </div>
     <table-view></table-view>
@@ -42,11 +48,30 @@ const store = new Vuex.Store({
       state.tableName = payload.tableName;
       state.smartTable = jsql.addTable(payload.tableName);
     },
+    pushColumn(state, payload) {
+      state.smartTable.pushColumn(payload.name, payload.type);
+      state.smartTable.dataObject.rowArray = state.smartTable.dataObject.rowArray;
+    },
+    pushRow(state, payload) {
+      state.smartTable.pushRow(payload);
+    },
+    createFilter(state, payload) {
+      state.smartTable.createFilter(payload);
+    },
   },
   getters: {
     getTable: state => state.smartTable,
     getTableName: state => state.tableName,
-    getNumberOfRows: (state, getters) => getters.getTable.getNumberofRows(),
+    getNumberofRows: (state, getters) => getters.getRowArray.numberofRows,
+    getNumberofColumns: (state, getters) => getters.getColumnArray.numberofColumns,
+    getColumnArray: (state, getters) => getters.getTable.dataObject.columnArray,
+    getRowArray: (state, getters) => getters.getTable.dataObject.rowArray,
+    getTableFilterManager: state => state.smartTable.filterManager,
+    getDataObject: (state, getters) => getters.getTable.getCurrentData(),
+    getRowList: (state, getters) => getters.getDataObject.rowArray.rowList,
+    getRowData: (state, getters) => rowIndex => getters.getRowList[rowIndex],
+    getColumnByIndex: (state, getters) => index =>
+      getters.getDataObject.columnArray.getColumnByIndex(index),
   },
 });
 
@@ -74,13 +99,24 @@ export default {
   },
   created() {
     this.$store.commit('addTable', { tableName: this.tableName });
+    this.$store.commit('pushColumn', { name: 'name', type: 'String' });
+    this.$store.commit('pushColumn', { name: 'name2', type: 'String' });
+    this.$store.commit('pushColumn', { name: 'name3', type: 'String' });
+    this.$store.commit('pushColumn', { name: 'name4', type: 'String' });
+    this.$store.commit('pushRow', ['Daniel']);
+    this.$store.commit('pushRow', ['Raul']);
+    this.$store.commit('pushRow', ['Benjamin']);
+    this.$store.commit('pushRow', ['Daniel']);
+    this.$store.commit('createFilter', { targetColumn: 'Name', filterFunction: 'equalTo', parameters: 'Daniel', tag: 'test1' });
     this.loading = false;
+  },
+  mounted() {
   },
   computed: {
     ...mapGetters([
       'getTable',
       'getTableName',
-      'getNumberOfRows',
+      'getNumberofRows',
       // ...
     ]),
   },
