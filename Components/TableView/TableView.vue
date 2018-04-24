@@ -4,7 +4,7 @@
       {{ getTableName }}
     </h3>
     <table-menu :data="menuData" class="attached"></table-menu>
-    <data-table></data-table>
+    <data-table class="ui bottom attached"></data-table>
   </div>
 </template>
 

@@ -42,6 +42,11 @@ const store = new Vuex.Store({
   state: {
     tableName: '',
     smartTable: null,
+    filterFunctions: {
+      Number: ['Equal to', 'Less than', 'Greater than', 'In between'],
+      Date: ['On date', 'Before date', 'After date', 'In between dates'],
+      String: ['Equal to', 'Starts with', 'Ends With', 'Contains'],
+    },
   },
   mutations: {
     addTable(state, payload) {
@@ -64,7 +69,6 @@ const store = new Vuex.Store({
     getTableName: state => state.tableName,
     getNumberofRows: (state, getters) => getters.getRowArray.numberofRows,
     getNumberofColumns: (state, getters) => getters.getColumnArray.numberofColumns,
-    getColumnArray: (state, getters) => getters.getTable.dataObject.columnArray,
     getRowArray: (state, getters) => getters.getTable.dataObject.rowArray,
     getTableFilterManager: state => state.smartTable.filterManager,
     getDataObject: (state, getters) => getters.getTable.getCurrentData(),
@@ -72,6 +76,9 @@ const store = new Vuex.Store({
     getRowData: (state, getters) => rowIndex => getters.getRowList[rowIndex],
     getColumnByIndex: (state, getters) => index =>
       getters.getDataObject.columnArray.getColumnByIndex(index),
+    getColumnArray: (state, getters) => getters.getTable.dataObject.columnArray,
+    getColumnList: (state, getters) => getters.getColumnArray.columnList,
+    getFilterFunctions: state => state.filterFunctions,
   },
 });
 
@@ -102,7 +109,7 @@ export default {
     this.$store.commit('pushColumn', { name: 'name', type: 'String' });
     this.$store.commit('pushColumn', { name: 'name2', type: 'String' });
     this.$store.commit('pushColumn', { name: 'name3', type: 'String' });
-    this.$store.commit('pushColumn', { name: 'name4', type: 'String' });
+    this.$store.commit('pushColumn', { name: 'name4', type: 'Number' });
     this.$store.commit('pushRow', ['Daniel']);
     this.$store.commit('pushRow', ['Raul']);
     this.$store.commit('pushRow', ['Benjamin']);

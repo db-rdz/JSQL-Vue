@@ -1,13 +1,21 @@
 <template>
   <div>
-    <div>
+    <div v-if="!isFilterFormShowing">
       <filter-object v-for="(filter, index) in filterManager.filterList"
+        @editFilter="editFilter(filter)"
         :key="index" :filter="filter"
       ></filter-object>
     </div>
-    <filter-form></filter-form>
-    <button class="ui primary button" v-if="isFilterFormShowing"> Save </button>
-    <button class="ui secondary button"> Go Back </button>
+    <br/>
+    <filter-form v-if="isFilterFormShowing" :filter="editingFitler"></filter-form>
+    <button class="ui primary button" v-if="!isFilterFormShowing" @click="createFilter">
+      Create Filter
+    </button>
+
+    <button class="ui secondary button" v-if="isFilterFormShowing" @click="toggleFilterForm">
+      Go Back
+    </button>
+    <button class="ui primary button" v-if="isFilterFormShowing"> Save/Create Filter </button>
   </div>
 </template>
 
@@ -29,7 +37,21 @@ export default {
   data() {
     return {
       isFilterFormShowing: false,
+      editingFitler: null,
     };
+  },
+  methods: {
+    toggleFilterForm() {
+      this.isFilterFormShowing = !this.isFilterFormShowing;
+    },
+    editFilter(filter) {
+      this.editingFitler = filter;
+      this.isFilterFormShowing = true;
+    },
+    createFilter() {
+      this.filter = null;
+      this.isFilterFormShowing = true;
+    },
   },
 };
 </script>
