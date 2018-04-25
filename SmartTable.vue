@@ -106,7 +106,7 @@ export default {
   },
   created() {
     this.$store.commit('addTable', { tableName: this.tableName });
-    this.$store.commit('pushColumn', { name: 'name', type: 'String' });
+    this.$store.commit('pushColumn', { name: 'Name', type: 'String' });
     this.$store.commit('pushColumn', { name: 'name2', type: 'String' });
     this.$store.commit('pushColumn', { name: 'name3', type: 'String' });
     this.$store.commit('pushColumn', { name: 'name4', type: 'Number' });
