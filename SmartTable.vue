@@ -71,7 +71,7 @@ const store = new Vuex.Store({
     getNumberofColumns: (state, getters) => getters.getColumnArray.numberofColumns,
     getRowArray: (state, getters) => getters.getTable.dataObject.rowArray,
     getTableFilterManager: state => state.smartTable.filterManager,
-    getDataObject: (state, getters) => getters.getTable.getCurrentData(),
+    getDataObject: (state, getters) => getters.getTable.processedDataObject,
     getRowList: (state, getters) => getters.getDataObject.rowArray.rowList,
     getRowData: (state, getters) => rowIndex => getters.getRowList[rowIndex],
     getColumnByIndex: (state, getters) => index =>

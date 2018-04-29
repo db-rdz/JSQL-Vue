@@ -3,7 +3,8 @@
     <div class="three fields">
       <div class="field">
         <label>Tag/Name your filter:</label>
-        <input type="text" placeholder="Filter Name" :value="tag">
+        <input
+          @change="tagUpdate" ref="filter-tag" type="text" placeholder="Filter Name" :value="tag">
       </div>
     </div>
 
@@ -12,7 +13,7 @@
       <div class="field">
         <label>Apply your filter to a column:</label>
         <div class="ui selection dropdown">
-            <input ref="targetColumn" type="hidden" @change="targetColumnUpdate"
+            <input ref="target-column" type="hidden" @change="targetColumnUpdate"
               name="filterColumn" :value="selectedColumn">
             <i class="dropdown icon"></i>
             <div class="default text">Choose a column:</div>
@@ -32,7 +33,7 @@
       <div class="field">
         <label>Select how to filter your data:</label>
         <div class="ui selection dropdown" :class="{ disabled: !columnType }">
-            <input @change="filterFunctionUpdate" type="hidden" name="gender"
+            <input ref="filter-function" @change="filterFunctionUpdate" type="hidden" name="gender"
               :value="selectedFilterFunction">
             <i class="dropdown icon"></i>
             <div class="default text">Choose a filter function:</div>
@@ -48,11 +49,20 @@
 
       <div class="field" v-for="index in numberOfArguments" :key="index">
         <label>Argument {{index}}</label>
-        <input type="text" placeholder="First Name"
+        <input
+          placeholder="First Name"
+          @change="updateParameters(index, $event)"
+          :data-param-index="index"
+          :ref="'argument-'+index" type="text"
           :value="getArgumentValue(index - 1)">
       </div>
 
     </div>
+
+    <button class="ui secondary button" @click="goBack">
+      Go Back
+    </button>
+    <button class="ui primary button" @click="takeAction"> Save/Create Filter </button>
 
   </div>
 </template>
@@ -88,6 +98,22 @@ export default {
     };
   },
   methods: {
+    tagUpdate(e) {
+      this.tag = e.target.value;
+    },
+    parameter1Update(e) {
+      this.parameterOne = e.target.value;
+    },
+    parameter2Update(e) {
+      this.parameterTwo = e.target.value;
+    },
+    updateParameters(index, e) {
+      if (index === 1) {
+        this.parameterOne = e.target.value;
+      } else {
+        this.parameterTwo = e.target.value;
+      }
+    },
     targetColumnUpdate(e) {
       this.columnObject = this.getColumnList[e.target.value];
       this.columnType = this.columnObject.type;
@@ -116,6 +142,32 @@ export default {
         return this.parameterOne;
       }
       return this.parameterTwo;
+    },
+    goBack() {
+      this.$emit('close');
+    },
+    takeAction() {
+      const filterTag = this.$refs['filter-tag'].value;
+      const targetColumn = this.$refs['target-column'].value;
+      const filterFunction = this.$refs['filter-function'].value;
+      let args = this.$refs['argument-1'][0].value;
+
+      if (this.numberOfArguments === 2) {
+        args = [args, this.$refs['argument-2'][1].value];
+      }
+
+      const filterParams = {
+        tag: filterTag,
+        targetColumn,
+        filterFunction,
+        parameters: args,
+      };
+
+      if (this.filter) {
+        this.$store.commit('createFilter', filterParams);
+      } else {
+        this.$store.commit('editFilter', filterParams);
+      }
     },
   },
   computed: {

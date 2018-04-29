@@ -4,6 +4,7 @@
       {{ getTableName }}
     </h3>
     <table-menu :data="menuData" class="attached"></table-menu>
+    <table-search></table-search>
     <data-table class="ui bottom attached"></data-table>
   </div>
 </template>
@@ -12,10 +13,11 @@
 import { mapGetters } from 'vuex';
 import TableMenu from './TableMenu/TableMenu';
 import DataTable from './DataTable/DataTable';
+import TableSearch from './TableSearch/TableSearch';
 
 export default {
   name: 'TableView',
-  components: { TableMenu, DataTable },
+  components: { TableMenu, DataTable, TableSearch },
   props: {
     name: {
       default: '',

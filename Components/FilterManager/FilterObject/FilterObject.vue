@@ -3,7 +3,8 @@
     <div class="field">
       <a class="item pointer" @click="editFilter" ><i class="cog icon"></i></a>
       <div class="ui toggle icon checkbox">
-        <input type="checkbox" name="gift" tabindex="0" class="hidden">
+        <input @change="toggleFilter(filter)"
+        type="checkbox" name="gift" tabindex="0" class="hidden">
         <label><h4 class="ui header"> {{ filter.tag }} </h4></label>
       </div>
     </div>
@@ -12,6 +13,8 @@
 
 <script>
 /* global $ */
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'FilterObject',
   props: {
@@ -27,6 +30,19 @@ export default {
     editFilter() {
       this.$emit('editFilter', this.filter);
     },
+    toggleFilter(filter) {
+      if (!filter.status) {
+        this.getTable.activateFilter({ filterTag: filter.tag });
+      } else {
+        this.getTable.deactivateFilter({ filterTag: filter.tag });
+      }
+    },
+  },
+  computed: {
+    ...mapGetters([
+      'getTableFilterManager',
+      'getTable',
+    ]),
   },
 };
 </script>
