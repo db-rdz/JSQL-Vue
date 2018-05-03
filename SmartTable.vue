@@ -24,6 +24,8 @@
       </div>
     </div>
     <table-view></table-view>
+    <br><br><br>
+    <graph-view></graph-view>
   </div>
 </template>
 
@@ -32,6 +34,8 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import JSQL from 'jsql-smarttable';
 import TableView from './Components/TableView/TableView';
+import GraphView from './Components/GraphView/GraphView';
+import GraphFormStore from './Components/Stores/GraphFormStore/GraphFormStore';
 
 const { mapGetters } = Vuex;
 
@@ -80,11 +84,12 @@ const store = new Vuex.Store({
     getColumnList: (state, getters) => getters.getColumnArray.columnList,
     getFilterFunctions: state => state.filterFunctions,
   },
+  modules: { GraphFormStore },
 });
 
 export default {
   name: 'SmartTableManager',
-  components: { TableView },
+  components: { TableView, GraphView },
   store,
   props: {
     read_api: {

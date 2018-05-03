@@ -1,14 +1,26 @@
 <template>
-    <div class="ui menu" id="#table-menu" stlye="height: 100%">
-      <filter-manager-modal :filterManager="getTableFilterManager"></filter-manager-modal>
-      <column-form-modal></column-form-modal>
-      <div style="display: inline;">
-          <component
-            @action="menuAction"
-            :is="adapter" v-for="(value, index) in data" :data="value" :key="index">
-          </component>
-      </div>
+  <div class="ui menu" id="#table-menu" stlye="height: 100%">
+    <filter-manager-modal :filterManager="getTableFilterManager"></filter-manager-modal>
+    <column-form-modal></column-form-modal>
+    <div style="display: inline;">
+        <component
+          @action="menuAction"
+          :is="adapter" v-for="(value, index) in data" :data="value" :key="index">
+        </component>
     </div>
+    <div class="ui right aligned category search item">
+      <div class="ui transparent icon input">
+        <input class="prompt" type="text" placeholder="Search animals...">
+        <i class="search link icon"></i>
+      </div>
+      <div class="results"></div>
+    </div>
+    <div style="display: inline;">
+      <a class="item">
+        <i class="chart bar icon"></i>
+      </a>
+    </div>
+  </div>
 </template>
 
 <script>
