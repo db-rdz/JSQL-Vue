@@ -33,12 +33,13 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import JSQL from 'jsql-smarttable';
+import VeeValidate from 'vee-validate';
 import TableView from './Components/TableView/TableView';
 import GraphView from './Components/GraphView/GraphView';
-import GraphFormStore from './Components/Stores/GraphFormStore/GraphFormStore';
 
 const { mapGetters } = Vuex;
 
+Vue.use(VeeValidate);
 Vue.use(Vuex);
 
 const jsql = new JSQL({ name: 'table-holder' });
@@ -67,6 +68,9 @@ const store = new Vuex.Store({
     createFilter(state, payload) {
       state.smartTable.createFilter(payload);
     },
+    createGraph(state, payload) {
+      state.smartTable.graphManager.createGraph(payload);
+    },
   },
   getters: {
     getTable: state => state.smartTable,
@@ -83,8 +87,9 @@ const store = new Vuex.Store({
     getColumnArray: (state, getters) => getters.getTable.dataObject.columnArray,
     getColumnList: (state, getters) => getters.getColumnArray.columnList,
     getFilterFunctions: state => state.filterFunctions,
+    getGraphManager: (state, getters) => getters.getTable.graphManager,
+    getGraphList: (state, getters) => getters.getGraphManager.graphList,
   },
-  modules: { GraphFormStore },
 });
 
 export default {

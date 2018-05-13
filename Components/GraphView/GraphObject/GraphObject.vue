@@ -1,33 +1,31 @@
 <template>
-  <a class="ui red card">
-    <div class="content">
-      <div class="header">Cute Dog </div>
-      <div class="ui icon top left pointing dropdown button">
-        <i class="wrench icon"></i>
-        <div class="menu">
-          <div class="header">Edit</div>
-          <div class="item">Delete</div>
-        </div>
-      </div>
-      <div class="meta">
-        <span class="right floated time">2 days ago</span>
-        <span class="category">Animals</span>
-      </div>
-      <div class="description">
-        <p></p>
-      </div>
-    </div>
-    <div class="extra content">
-      <div class="right floated author">
-        <img class="ui avatar image" src="/images/avatar/small/matt.jpg"> Matt
-      </div>
-    </div>
-  </a>
+      <canvas id="chartJSContainer" ref="graphView" width="600" height="200"></canvas>
 </template>
 
 <script>
+import Chart from 'chart.js';
+
 export default {
   name: 'GraphObject',
+  props: {
+    graph: {
+      required: true,
+    },
+    index: {
+      type: Number,
+    },
+  },
+  data() {
+    return {
+      graphObject: {},
+    };
+  },
+  mounted() {
+    const options = this.graph.getChart();
+    options.type = 'line';
+    const ctx = document.getElementById('chartJSContainer').getContext('2d');
+    this.chart = new Chart(ctx, options);
+  },
 };
 </script>
 

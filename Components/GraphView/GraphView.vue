@@ -6,7 +6,9 @@
     <graph-view-menu class="attached"></graph-view-menu>
     <br><p></p>
     <div class="ui four cards">
-      <graph-object></graph-object>
+      <graph-object v-for="(graph, index) in getGraphList"
+      :index="index" :key="index" :graph="graph"
+      ></graph-object>
     </div>
   </div>
 </template>
@@ -40,6 +42,7 @@ export default {
       'getTableName',
       'getNumberofRows',
       'getDataObject',
+      'getGraphList',
       // ...
     ]),
   },
