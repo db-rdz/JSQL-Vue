@@ -17,14 +17,30 @@ export default {
   },
   data() {
     return {
-      graphObject: {},
+      chart: null,
     };
   },
+  watch: {
+    graph() {
+      this.updateGraph();
+    },
+  },
+  methods: {
+    updateGraph() {
+      if (this.chart !== null) {
+        this.chart.destroy();
+      }
+      const options = this.graph.getChart();
+      options.type = 'line';
+      const ctx = document.getElementById('chartJSContainer').getContext('2d');
+      this.chart = new Chart(ctx, options);
+    },
+  },
   mounted() {
-    const options = this.graph.getChart();
-    options.type = 'line';
-    const ctx = document.getElementById('chartJSContainer').getContext('2d');
-    this.chart = new Chart(ctx, options);
+    this.updateGraph();
+  },
+  updated() {
+    this.updateGraph();
   },
 };
 </script>

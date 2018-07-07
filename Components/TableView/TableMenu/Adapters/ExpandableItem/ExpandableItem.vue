@@ -34,7 +34,11 @@ export default {
   },
   methods: {
     toggleMenu() {
-      this.expanded = !this.expanded;
+      if (this.data && this.data.subItems && this.data.subItems.length > 0) {
+        this.expanded = !this.expanded;
+      } else {
+        this.$emit('action', { mainItem: this.mainItem });
+      }
     },
     menuClick(index) {
       this.$emit('action', { mainItem: this.mainItem, subItems: this.subItems, clickedItem: index });

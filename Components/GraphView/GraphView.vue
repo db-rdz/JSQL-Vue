@@ -4,11 +4,22 @@
       {{ getTableName }}
     </h3>
     <graph-view-menu class="attached"></graph-view-menu>
-    <br><p></p>
-    <div class="ui four cards">
-      <graph-object v-for="(graph, index) in getGraphList"
-      :index="index" :key="index" :graph="graph"
-      ></graph-object>
+    <div class="ui top attached tabular menu">
+      <a class="item" v-for="(graph, index) in getGraphList"
+        @click="toggleItem(index)"
+        :class="index === selectedGraphIndex ? 'active' : ''"
+        :index="index" :key="index">
+        {{ graph.options.title.text }}
+      </a>
+    </div>
+    <div class="ui bottom attached segment">
+      <div v-if="getGraphList.length > 0">
+        <graph-object :graph="selectedGraph"
+        ></graph-object>
+      </div>
+      <div v-else>
+        No Graphs made.
+      </div>
     </div>
   </div>
 </template>
@@ -19,7 +30,7 @@ import GraphViewMenu from './GraphViewMenu/GraphViewMenu';
 import GraphObject from './GraphObject/GraphObject';
 
 export default {
-  name: 'TableView',
+  name: 'GraphView',
   components: { GraphObject, GraphViewMenu },
   props: {
     name: {
@@ -28,16 +39,11 @@ export default {
   },
   data() {
     return {
-      menuData: [
-        { item: 'plus', subItems: ['Row', 'Column'] },
-        { item: 'trash' },
-        { item: 'search', subItems: ['Column', 'Row'] },
-        { item: 'filter', subItems: ['Show', 'Manage'] },
-      ],
+      selectedGraphIndex: 0,
     };
   },
   computed: {
-    ...mapGetters([
+    ...mapGetters('JSQL', [
       'getTable',
       'getTableName',
       'getNumberofRows',
@@ -45,6 +51,14 @@ export default {
       'getGraphList',
       // ...
     ]),
+    selectedGraph() {
+      return this.getGraphList[this.selectedGraphIndex];
+    },
+  },
+  methods: {
+    toggleItem(graphIndex) {
+      this.selectedGraphIndex = graphIndex;
+    },
   },
 };
 </script>

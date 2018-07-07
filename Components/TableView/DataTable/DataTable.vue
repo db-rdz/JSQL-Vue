@@ -18,7 +18,7 @@ export default {
     tableRows() {
       return this.getDataObject.rowArray;
     },
-    ...mapGetters([
+    ...mapGetters('JSQL', [
       'getTable',
       'getTableName',
       'getNumberOfRows',

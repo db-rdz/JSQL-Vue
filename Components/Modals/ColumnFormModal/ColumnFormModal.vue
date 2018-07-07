@@ -33,7 +33,7 @@ export default {
       const mode = this.formValues ? 'Edit' : 'Create';
 
       if (mode === 'Create') {
-        this.$store.commit('pushColumn', { name: columnTitle, type: columnType });
+        this.$store.commit('JSQL/pushColumn', { name: columnTitle, type: columnType });
       }
     },
   },

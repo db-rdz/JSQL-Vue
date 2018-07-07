@@ -16,7 +16,7 @@ export default {
   props: {
   },
   computed: {
-    ...mapGetters([
+    ...mapGetters('JSQL', [
       'getTable',
       'getTableName',
       'getNumberOfRows',

@@ -3,14 +3,48 @@
     <filter-manager-modal :filterManager="getTableFilterManager"></filter-manager-modal>
     <column-form-modal></column-form-modal>
     <div style="display: inline;">
-        <component
-          @action="menuAction"
-          :is="adapter" v-for="(value, index) in data" :data="value" :key="index">
-        </component>
+      <div style="display: inline;">
+        <a class="item" style="float: left;">
+          <i class="plus icon"></i>
+        </a>
+        <a class="item" style="float: left;">
+          Row
+        </a>
+        <a class="item" style="float: left;">
+          Column
+        </a>
+      </div>
+      <div style="display: inline;">
+        <a class="item" style="float: left;">
+          <i class="trash icon"></i>
+        </a>
+        <a class="item" style="float: left;">
+          Row
+        </a>
+        <a class="item" style="float: left;">
+          Column
+        </a>
+      </div>
+      <div style="display: inline;">
+        <a class="item" style="float: left;">
+          <i class="search icon"></i>
+        </a>
+        <a class="item" style="float: left;">
+          Table
+        </a>
+        <a class="item" style="float: left;">
+          Column
+        </a>
+      </div>
+      <div style="display: inline;">
+        <a class="item" style="float: left;">
+          <i class="filter icon"></i>
+        </a>
+      </div>
     </div>
     <div class="ui right aligned category search item">
       <div class="ui transparent icon input">
-        <input class="prompt" type="text" placeholder="Search animals...">
+        <input class="prompt" type="text" placeholder="Search Table">
         <i class="search link icon"></i>
       </div>
       <div class="results"></div>
@@ -25,7 +59,7 @@
 
 <script>
 /* global $ */
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import ColumnFormModal from '@/components/jsql-smarttable/Components/Modals/ColumnFormModal/ColumnFormModal';
 import FilterManagerModal from '@/components/jsql-smarttable/Components/Modals/FilterManagerModal/FilterManagerModal';
 import ExpandableItem from './Adapters/ExpandableItem/ExpandableItem';
@@ -39,6 +73,18 @@ export default {
     data: {
       required: false,
     },
+    addRowButtonHandler: {
+      type: Function,
+    },
+    removeRowButtonHandler: {
+      type: Function,
+    },
+    addColumnButtonHandler: {
+      type: Function,
+    },
+    removeColumnButtonHandler: {
+      type: Function,
+    },
     adapter: {
       type: String,
       default: 'ExpandableItem',
@@ -47,19 +93,25 @@ export default {
   data() {
     return {
       openedMenuItem: null,
+      isAddTabExpanded: false,
+      isRemoveTabExpanded: false,
+      isSearchTabExpanded: false,
     };
   },
   computed: {
-    ...mapGetters([
+    ...mapGetters('JSQL', [
       'getTableFilterManager',
     ]),
   },
   methods: {
+    ...mapMutations('JSQL', [
+      'pushRow',
+    ]),
     menuAction(args) {
       switch (args.mainItem) {
         case 'plus': {
           if (args.subItems[args.clickedItem] === 'Row') {
-            this.$store.commit('pushRow');
+            this.pushRow();
           } else if (args.subItems[args.clickedItem] === 'Column') {
             $('.modal').modal('show');
           }

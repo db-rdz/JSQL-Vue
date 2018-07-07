@@ -32,31 +32,30 @@
 <script>
 import Vue from 'vue';
 import Vuex from 'vuex';
-import JSQL from 'jsql-smarttable';
+import { TableObject } from 'jsql-smarttable';
 import VeeValidate from 'vee-validate';
 import TableView from './Components/TableView/TableView';
 import GraphView from './Components/GraphView/GraphView';
 
-const { mapGetters } = Vuex;
+const { mapGetters, mapMutations } = Vuex;
 
 Vue.use(VeeValidate);
 Vue.use(Vuex);
 
-const jsql = new JSQL({ name: 'table-holder' });
-const store = new Vuex.Store({
+const store = {
   state: {
     tableName: '',
-    smartTable: null,
+    smartTable: {},
     filterFunctions: {
       Number: ['Equal to', 'Less than', 'Greater than', 'In between'],
       Date: ['On date', 'Before date', 'After date', 'In between dates'],
       String: ['Equal to', 'Starts with', 'Ends With', 'Contains'],
     },
   },
+  namespaced: true,
   mutations: {
-    addTable(state, payload) {
-      state.tableName = payload.tableName;
-      state.smartTable = jsql.addTable(payload.tableName);
+    setTable(state, payload) {
+      state.smartTable = new TableObject(payload);
     },
     pushColumn(state, payload) {
       state.smartTable.pushColumn(payload.name, payload.type);
@@ -71,10 +70,13 @@ const store = new Vuex.Store({
     createGraph(state, payload) {
       state.smartTable.graphManager.createGraph(payload);
     },
+    editCell(state, { rowIndex, columnName, value }) {
+      state.smartTable.editCell(rowIndex, columnName, value);
+    },
   },
   getters: {
     getTable: state => state.smartTable,
-    getTableName: state => state.tableName,
+    getTableName: state => state.smartTable.name,
     getNumberofRows: (state, getters) => getters.getRowArray.numberofRows,
     getNumberofColumns: (state, getters) => getters.getColumnArray.numberofColumns,
     getRowArray: (state, getters) => getters.getTable.dataObject.rowArray,
@@ -90,22 +92,15 @@ const store = new Vuex.Store({
     getGraphManager: (state, getters) => getters.getTable.graphManager,
     getGraphList: (state, getters) => getters.getGraphManager.graphList,
   },
-});
+};
 
 export default {
   name: 'SmartTableManager',
   components: { TableView, GraphView },
-  store,
   props: {
-    read_api: {
-      type: String,
-    },
-    write_api: {
-      type: String,
-    },
-    tableName: {
-      type: String,
-      required: true,
+    tableArgs: {
+      type: Object,
+      default() { return {}; },
     },
   },
   data() {
@@ -114,23 +109,21 @@ export default {
       loading: true,
     };
   },
+  methods: {
+    ...mapMutations('JSQL', [
+      'setTable',
+    ]),
+  },
   created() {
-    this.$store.commit('addTable', { tableName: this.tableName });
-    this.$store.commit('pushColumn', { name: 'Name', type: 'String' });
-    this.$store.commit('pushColumn', { name: 'name2', type: 'String' });
-    this.$store.commit('pushColumn', { name: 'name3', type: 'String' });
-    this.$store.commit('pushColumn', { name: 'name4', type: 'Number' });
-    this.$store.commit('pushRow', ['Daniel']);
-    this.$store.commit('pushRow', ['Raul']);
-    this.$store.commit('pushRow', ['Benjamin']);
-    this.$store.commit('pushRow', ['Daniel']);
-    this.$store.commit('createFilter', { targetColumn: 'Name', filterFunction: 'equalTo', parameters: 'Daniel', tag: 'test1' });
-    this.loading = false;
+    if (!this.$store.JSQL) {
+      this.$store.registerModule('JSQL', store);
+    }
+    this.setTable(this.tableArgs);
   },
   mounted() {
   },
   computed: {
-    ...mapGetters([
+    ...mapGetters('JSQL', [
       'getTable',
       'getTableName',
       'getNumberofRows',

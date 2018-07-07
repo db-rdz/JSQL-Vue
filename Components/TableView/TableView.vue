@@ -26,15 +26,17 @@ export default {
   data() {
     return {
       menuData: [
-        { item: 'plus', subItems: ['Row', 'Column'] },
-        { item: 'trash' },
-        { item: 'search', subItems: ['Column', 'Row'] },
-        { item: 'filter', subItems: ['Show', 'Manage'] },
+        // { item: 'plus', subItems: ['Row', 'Column'] },
+        // { item: 'trash' },
+        // { item: 'search', subItems: ['Column', 'Row'] },
+        // { item: 'filter' },
       ],
     };
   },
+  created() {
+  },
   computed: {
-    ...mapGetters([
+    ...mapGetters('JSQL', [
       'getTable',
       'getTableName',
       'getNumberofRows',

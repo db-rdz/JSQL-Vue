@@ -60,10 +60,11 @@
               name="xAxisGroupingFunction"
             >
             <i class="dropdown icon"></i>
-            <div class="default text">Choose a column:</div>
+            <div class="default text">Group By</div>
             <div class="menu">
-              <div class="item" data-value="Value">
-                  Value
+              <div class="item" v-for="(groupType, index) in groupTypes"
+                :key="index" :data-value="groupType">
+                  {{groupType}}
               </div>
             </div>
         </div>
@@ -198,18 +199,38 @@ export default {
     },
   },
   computed: {
-    ...mapGetters([
+    ...mapGetters('JSQL', [
       'getColumnByIndex',
       'getNumberofColumns',
-      // ...
+      'getColumnList',
     ]),
+    groupTypes() {
+      const columnName = this.graph.dataGrouper.yAxis.dataAction.targetColumn;
+      if (columnName) {
+        const columnObject = this.getColumnList[columnName];
+        const type = columnObject.type;
+        switch (type) {
+          case 'Date': {
+            return ['Day', 'Week', 'Month', 'Year'];
+          }
+          case 'Number': {
+            return ['Value', 'Range'];
+          }
+          default: {
+            return ['Value'];
+          }
+        }
+      }
+      return [''];
+    },
   },
   methods: {
     createGraph(e) {
       e.preventDefault();
       const results = $('.ui.form').form('is valid');
       if (!results.includes(false)) {
-        this.$store.commit('createGraph', this.graph);
+        const graphOptions = JSON.parse(JSON.stringify(this.graph));
+        this.$store.commit('createGraph', graphOptions);
       }
     },
     goBack() {
