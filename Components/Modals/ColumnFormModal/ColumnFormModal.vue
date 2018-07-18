@@ -15,8 +15,8 @@
 
 <script>
 /* global $ */
-import ModalObject from '../ModalObject';
-import ColumnForm from '../../Forms/ColumnForm/ColumnForm';
+import ModalObject from '../ModalObject.vue';
+import ColumnForm from '../../Forms/ColumnForm/ColumnForm.vue';
 
 export default {
   name: 'ColumnFormModal',

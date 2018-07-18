@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import ModalObject from '../ModalObject';
-import FilterManager from '../../FilterManager/FilterManager';
+import ModalObject from '../ModalObject.vue';
+import FilterManager from '../../FilterManager/FilterManager.vue';
 
 export default {
   name: 'FilterManagerModal',

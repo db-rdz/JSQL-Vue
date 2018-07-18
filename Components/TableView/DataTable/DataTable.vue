@@ -1,19 +1,26 @@
 <template>
   <table class="ui celled selectable striped table">
     <table-header :columnList="getDataObject.columnArray.columnList"></table-header>
-    <table-body :rowArray="getDataObject.rowArray"></table-body>
+    <table-body :options="options" :rowArray="getDataObject.rowArray"></table-body>
+    <slot v-if="getNumberofColumns == 0 && getNumberofRows == 0" name="empty_state"></slot>
   </table>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import TableHeader from './TableHeader/TableHeader';
-import TableBody from './TableBody/TableBody';
+import TableHeader from './TableHeader/TableHeader.vue';
+import TableBody from './TableBody/TableBody.vue';
 
 
 export default {
   name: 'DataTable',
   components: { TableHeader, TableBody },
+  props: {
+    options: {
+      type: Object,
+      default() { return {}; },
+    },
+  },
   computed: {
     tableRows() {
       return this.getDataObject.rowArray;
@@ -21,7 +28,8 @@ export default {
     ...mapGetters('JSQL', [
       'getTable',
       'getTableName',
-      'getNumberOfRows',
+      'getNumberofRows',
+      'getNumberofColumns',
       'getDataObject',
       // ...
     ]),

@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import ModalObject from '../ModalObject';
-import GraphEditor from '../../GraphView/GraphEditor/GraphEditor';
+import ModalObject from '../ModalObject.vue';
+import GraphEditor from '../../GraphView/GraphEditor/GraphEditor.vue';
 
 export default {
   name: 'GraphEditorModal',

@@ -23,7 +23,7 @@
 
 <script>
 /* global $ */
-import GraphEditorModal from '../../Modals/GraphEditorModal/GraphEditorModal';
+import GraphEditorModal from '../../Modals/GraphEditorModal/GraphEditorModal.vue';
 
 export default {
   name: 'GraphViewMenu',

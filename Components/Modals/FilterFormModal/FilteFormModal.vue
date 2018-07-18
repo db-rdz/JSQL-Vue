@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import ModalObject from '../ModalObject';
-import FilterForm from '../../Forms/FilterForm/FilterForm';
+import ModalObject from '../ModalObject.vue';
+import FilterForm from '../../Forms/FilterForm/FilterForm.vue';
 
 export default {
   name: 'FilterFormModal',

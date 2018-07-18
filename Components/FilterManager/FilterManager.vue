@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="!isFilterFormShowing">
+    <div>
       <filter-object v-for="(filter, index) in filterManager.filterList"
         @editFilter="editFilter(filter)"
         :key="index" :filter="filter"
@@ -18,8 +18,8 @@
 
 <script>
 
-import FilterForm from '../Forms/FilterForm/FilterForm';
-import FilterObject from './FilterObject/FilterObject';
+import FilterForm from '../Forms/FilterForm/FilterForm.vue';
+import FilterObject from './FilterObject/FilterObject.vue';
 
 
 export default {

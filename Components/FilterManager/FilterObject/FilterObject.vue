@@ -39,7 +39,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters([
+    ...mapGetters('JSQL', [
       'getTableFilterManager',
       'getTable',
     ]),

@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import GraphForm from '../../Forms/GraphForm/GraphForm';
-import GraphPreview from './GraphPreview/GraphPreview';
+import GraphForm from '../../Forms/GraphForm/GraphForm.vue';
+import GraphPreview from './GraphPreview/GraphPreview.vue';
 
 export default {
   name: 'GraphEditor',

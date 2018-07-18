@@ -26,8 +26,8 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import GraphViewMenu from './GraphViewMenu/GraphViewMenu';
-import GraphObject from './GraphObject/GraphObject';
+import GraphViewMenu from './GraphViewMenu/GraphViewMenu.vue';
+import GraphObject from './GraphObject/GraphObject.vue';
 
 export default {
   name: 'GraphView',

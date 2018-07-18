@@ -1,14 +1,14 @@
   <template>
   <div class="ui form">
     <div class="field">
-      <div @click="toggleInputField" v-if="!showInputField">
+      <div @dblclick="toggleInputField" v-if="!showInputField">
         <span>{{value}}</span>
       </div>
       <div class="ui" :class="inputWrapperClass" v-if="showInputField">
         <input ref="inputField"
           @change="updateField"
           @blur="toggleInputField"
-          :type="fieldTypeClass" tabindex="0" class="hidden" :value="value">
+          :type="columnType" tabindex="0" class="hidden" :value="value">
         <label></label>
       </div>
     </div>

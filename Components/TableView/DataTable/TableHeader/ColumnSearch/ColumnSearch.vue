@@ -19,11 +19,11 @@ export default {
   methods: {
     searchColumn(e) {
       const columnObject = this.getColumnByIndex(this.columnIndex);
-      this.getTable.searchColumn(columnObject.name, e.target.value);
+      this.getColumnByIndex(columnObject.name, e.target.value);
     },
   },
   computed: {
-    ...mapGetters([
+    ...mapGetters('JSQL', [
       'getTable',
       'getColumnByIndex',
     ]),

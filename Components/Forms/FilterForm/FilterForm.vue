@@ -69,7 +69,7 @@
 
 <script>
 /* global $ */
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: 'FilterForm',
@@ -164,14 +164,18 @@ export default {
       };
 
       if (this.filter) {
-        this.$store.commit('createFilter', filterParams);
+        this.createFilter(filterParams);
       } else {
-        this.$store.commit('editFilter', filterParams);
+        this.editFilter(filterParams);
       }
     },
+    ...mapMutations('JSQL', [
+      'createFilter',
+      'editFilter',
+    ]),
   },
   computed: {
-    ...mapGetters([
+    ...mapGetters('JSQL', [
       'getColumnByIndex',
       'getRowData',
       'getNumberofColumns',
