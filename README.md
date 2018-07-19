@@ -112,7 +112,7 @@ Note: The empty_columns_state has preference over the empty_rows_state and the l
 ## Roadmap
 V1
 - [] Filtering // Has some issues
-- [x] Searchable Columns
+- [] Searchable Columns
 - [x] Searchable Table
 - [x] Editable Cells
 - [x] Add/Remove Rows
@@ -133,6 +133,13 @@ Future
 
 ## Images
 
+![Alt text](images/table_1.PNG?raw=true "")
+![Alt text](images/table_2.PNG?raw=true "")
+![Alt text](images/table_3.PNG?raw=true "")
+![Alt text](images/table_4.PNG?raw=true "")
+![Alt text](images/table_5.PNG?raw=true "")
+![Alt text](images/table_6.PNG?raw=true "")
+![Alt text](images/table_7.PNG?raw=true "")
 
 
 
