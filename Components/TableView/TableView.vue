@@ -6,7 +6,8 @@
     <table-menu v-bind="options" :data="menuData" class="attached"></table-menu>
     <filter-label-row></filter-label-row>
     <data-table :options="options" class="ui bottom attached">
-      <slot name="empty_state" slot="empty_state"></slot>
+      <slot name="empty_columns_state" slot="empty_columns_state"></slot>
+      <slot name="empty_rows_state" slot="empty_rows_state"></slot>
     </data-table>
   </div>
 </template>

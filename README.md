@@ -32,9 +32,7 @@ Then include jsql in your vue components:
 
 After this you should be able to use the jsql component on your template sections.
 
-## SmartTable Parameters
-
-You can pass data to the smart table component when you create it. The following lists all props that can be passed to the SmartTable component:
+## SmartTable Data/Options
 
 All table data is passed to the SmartTable component through the tableArgs prop. This prop must be an object containing the table information. The following example contains all keys that can be included in the tableArgs prop:
 
@@ -97,15 +95,61 @@ All table data is passed to the SmartTable component through the tableArgs prop.
 }">
 
 ```
+## Empty States
+
+You can create empty states of your own to notify a user that the table has no rows or no columns. Here are some very basic examples:
+
+```
+<smart-table>
+  <div slot="empty_columns_state"> You have no columns! </div>
+  <div slot="empty_rows_state"> You have no rows! </div>
+</smart-table>
+```
+
+Note: The empty_columns_state has preference over the empty_rows_state and the later won't show if empty_columns_state is showing.
+
+
+## Roadmap
+V1
+- [] Filtering // Has some issues
+- [x] Searchable Columns
+- [x] Searchable Table
+- [x] Editable Cells
+- [x] Add/Remove Rows
+- [x] Custom Empty States
+- [] Add/Remove Columns // Need to add ability to remove columns
+- [] Sortable Columns
+- [] Data Validation // Need to include custom Regex validation.
+
+V2
+- [] Boolean Column Data Type
+- [] Link Column Data Type
+- [] Row/Column reordering
+
+Future
+- [] Image Column Data Type
+- [] Data Graph Creation
+- [] Table Import/Export Options
+
+## Images
+
+
+
 
 ## NOTE
-This component is in a beta state and is not ready for production.
+* This component is in a beta state and is not ready for production. *
+
+## JSQL Core
+
+The core of this component is written is pure javascript so that it could be used to write the same component in other frameworks like react or angular. If you are interested check out the core JSQL repo: 
+
+https://github.com/db-rdz/JSQL
 
 ## License
 
 MIT
 
-
-
 ## Examples
+
+Example coming soon...
 

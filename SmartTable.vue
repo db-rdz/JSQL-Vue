@@ -18,7 +18,8 @@
       </div>
     </div>
     <table-view :options="options">
-      <slot name="empty_state" slot="empty_state"></slot>
+      <slot name="empty_columns_state" slot="empty_columns_state"></slot>
+      <slot name="empty_rows_state" slot="empty_rows_state"></slot>
     </table-view>
     <br><br><br>
     <graph-view></graph-view>
