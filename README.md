@@ -112,9 +112,9 @@ Note: The empty_columns_state has preference over the empty_rows_state and the l
 ## Roadmap
 V1
 [] Adding
-  [x] Adding Columns
-  [x] Adding Rows
-  [x] Adding Filters // Have some issues
+  - [x] Adding Columns
+  - [x] Adding Rows
+  - [x] Adding Filters // Have some issues
 [] Deleting
   [] Deleting Columns
   [x] Deleting Rows
