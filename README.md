@@ -111,40 +111,40 @@ Note: The empty_columns_state has preference over the empty_rows_state and the l
 
 ## Roadmap
 V1
-- [] Adding
+- [ ] Adding
   - [x] Adding Columns
   - [x] Adding Rows
   - [x] Adding Filters // Have some issues
-- [] Deleting
-  - [] Deleting Columns
+- [ ] Deleting
+  - [ ] Deleting Columns
   - [x] Deleting Rows
   - [x] Deleting Filters
-- [] Editing
-  - [] Edit Table Title
+- [ ] Editing
+  - [ ] Edit Table Title
   - [x] Edit Cells // Have some issues
-  - [] Edit Columns
-  - [] Edit Filters
-- [] Filtering // Has some issues
-- [] Search
+  - [ ] Edit Columns
+  - [ ] Edit Filters
+- [ ] Filtering // Has some issues
+- [ ] Search
   - [x] Search Table
-  - [] Search Columns
-- [] Custom Empty States
+  - [ ] Search Columns
+- [ ] Custom Empty States
   - [X] Empty Columns State
   - [x] Empty Rows State
-  - [] Empty Filters State
-  - [] Empty Search Results State
-- [] Sortable Columns
-- [] Data Validation // Need to include custom Regex validation.
+  - [ ] Empty Filters State
+  - [ ] Empty Search Results State
+- [ ] Sortable Columns
+- [ ] Data Validation // Need to include custom Regex validation.
 
 V2
-- [] Boolean Column Data Type
-- [] Link Column Data Type
-- [] Row/Column reordering
+- [ ] Boolean Column Data Type
+- [ ] Link Column Data Type
+- [ ] Row/Column reordering
 
 Future
-- [] Image Column Data Type
-- [] Data Graph Creation
-- [] Table Import/Export Options
+- [ ] Image Column Data Type
+- [ ] Data Graph Creation
+- [ ] Table Import/Export Options
 
 ## Images
 
