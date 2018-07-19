@@ -1,5 +1,5 @@
 # JSQL-Vue
-A graphical interface to the JSQL tool.
+JSQL Vue is an advanced table component for the vue framework that works with semantics-ui. This component uses JSQL package as its core. This package is under development.
 
 ## Dependencies
 
@@ -30,7 +30,7 @@ Then include jsql in your vue components:
   .
 ```
 
-After this you should be able to use the jsql component on your template sections.
+After this you should be able to use the jsql component on your template section.
 
 ## SmartTable Data/Options
 
@@ -134,6 +134,7 @@ V1
   - [ ] Empty Filters State
   - [ ] Empty Search Results State
 - [ ] Sortable Columns
+- [ ] Card View
 - [ ] Data Validation // Need to include custom Regex validation.
 
 V2
