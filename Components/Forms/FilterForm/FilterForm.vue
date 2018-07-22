@@ -163,8 +163,14 @@ export default {
         parameters: args,
       };
 
-      if (this.filter) {
-        this.createFilter(filterParams);
+      if (Object.keys(this.filter).length === 0) {
+        if (this.getTableHandlers.createFilterHandler) {
+          this.getTableHandlers.createFilterHandler(filterParams);
+        } else {
+          this.createFilter(filterParams);
+        }
+      } else if (this.getTableHandlers.editFilterHandler) {
+        this.getTableHandlers.createFilterHandler(filterParams);
       } else {
         this.editFilter(filterParams);
       }
@@ -181,6 +187,7 @@ export default {
       'getNumberofColumns',
       'getFilterFunctions',
       'getColumnList',
+      'getTableHandlers',
     ]),
     filterFunctions() {
       return this.getFilterFunctions[this.columnType];

@@ -1,14 +1,14 @@
 <template>
   <thead>
     <tr>
-      <th v-if="getShowRowSelectionBox"><a @click="handleSelectActionTrigger" href="#"> {{ getSelectActionText }} </a></th>
-      <th v-for="index in getNumberofColumns" :key="index">
-        <div v-if="getShowColumnSelectionBox" class="ui fitted checkbox">
-          <input @change="toggleColumnSelection(index)" type="checkbox" tabindex="0" class="hidden">
-          <label></label>
-        </div>
-        {{ getColumnByIndex(index - 1).name }}
+      <th v-if="getShowRowSelectionBox">
+        <a @click="handleSelectActionTrigger" href="#">
+          {{ getSelectActionText }}
+        </a>
       </th>
+      <table-column v-for="(column, columnName) in getProcessedDataColumnList" :key="columnName"
+        :column="column"
+      ></table-column>
     </tr>
     <tr v-if="getShowColumnSearch">
       <th v-if="getShowRowSelectionBox"></th>
@@ -23,32 +23,36 @@
 /* global $ */
 import { mapGetters, mapMutations } from 'vuex';
 import ColumnSearch from './ColumnSearch/ColumnSearch.vue';
+import TableColumn from './TableColumn.vue';
+import EditableDiv from '../../../Forms/EditableDiv/EditableDiv.vue';
 
 export default {
   name: 'TableHeader',
-  components: { ColumnSearch },
+  components: { ColumnSearch, EditableDiv, TableColumn },
   props: {
     columnArray: {
       type: Object,
     },
+  },
+  data() {
+    return {
+      editingColumnName: false,
+    };
   },
   mounted() {
     $('.ui.checkbox').checkbox();
   },
   computed: {
     ...mapGetters('JSQL', [
-      'getTable',
-      'getTableName',
-      'getColumnByIndex',
       'getNumberofColumns',
       'getShowColumnSearch',
-      'getShowColumnSelectionBox',
       'getShowRowSelectionBox',
 
       'getSelectedRows',
       'getSelectedColumns',
       'getSelectActionText',
       'getSelectHandler',
+      'getProcessedDataColumnList',
       // ...
     ]),
   },
@@ -57,21 +61,8 @@ export default {
       'removeRowsAndColumns',
       'setSelectedColumns',
       'setSelectedRows',
+      'editColumnName',
     ]),
-    /* toggleColumnSelection:
-    It adds a column to the selected columns array in the JSQL store if the column is not there yet
-    but if it is then it will remove it from the selected columns array.
-    */
-    toggleColumnSelection(columnIndex) {
-      const index = this.getSelectedColumns.indexOf(columnIndex);
-      if (index !== -1) { // If column index is found to be in the selected columna array then...
-        // Delete that index from the selected columna array.
-        this.getSelectedColumns.splice(columnIndex, 1);
-      } else {
-        // If not then you need to add it to the selected columna array.
-        this.getSelectedColumns.push(columnIndex);
-      }
-    },
     handleSelectActionTrigger(e) {
       const rows = this.getSelectedRows;
       const columns = this.getSelectedColumns;
@@ -82,6 +73,7 @@ export default {
         this.getSelectHandler({ rows, columns });
       }
 
+      // Clear the selected colum/row arrays.
       this.setSelectedColumns([]);
       this.setSelectedRows([]);
     },

@@ -1,10 +1,10 @@
 <template>
   <div class="ui form">
     <div class="field">
+      <span v-if="filter.status"> ACTIVE </span>
       <a class="item pointer" @click="editFilter" ><i class="cog icon"></i></a>
-      <div class="ui toggle icon checkbox">
-        <input @change="toggleFilter(filter)"
-        type="checkbox" name="gift" tabindex="0" class="hidden">
+      <div class="ui icon toggle checkbox" >
+        <input @change="toggleFilter(filter)" type="checkbox" :checked="filter.status">
         <label><h4 class="ui header"> {{ filter.tag }} </h4></label>
       </div>
     </div>
@@ -23,10 +23,18 @@ export default {
       default() { return {}; },
     },
   },
+  updated() {
+  },
   mounted() {
-    $('.checkbox').checkbox();
   },
   methods: {
+    setCheckbox() {
+      if (this.filter.status) {
+        $('.checkbox').checkbox('set checked');
+      } else {
+        $('.checkbox').checkbox('set unchecked');
+      }
+    },
     editFilter() {
       this.$emit('editFilter', this.filter);
     },

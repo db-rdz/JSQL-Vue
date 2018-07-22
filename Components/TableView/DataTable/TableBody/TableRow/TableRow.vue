@@ -2,8 +2,8 @@
   <tr>
     <keep-alive>
       <td v-if="getShowRowSelectionBox">
-        <div class="ui fitted checkbox" :id="`checkbox-${rowIndex}`" :class="{ 'checked': isSelected }">
-          <input @change="toggleRowSelection(rowIndex)" type="checkbox" tabindex="0" class="hidden">
+        <div class="ui fitted checkbox" :id="`checkbox-${rowIndex}`">
+          <input @change="toggleRowSelection(rowIndex)" type="checkbox" tabindex="0" :checked="isSelected">
           <label></label>
         </div>
       </td>
@@ -49,6 +49,7 @@ export default {
       'getRowData',
       'getNumberofColumns',
       'getSelectedRows',
+      'getTableHandlers',
     ]),
     isSelected() {
       if (this.getSelectedRows.indexOf(this.rowIndex) !== -1) {
@@ -67,8 +68,8 @@ export default {
       'toggleRowSelection',
     ]),
     updateCell(args) {
-      if (this.editCellHandler) {
-        this.editCellHandler(args);
+      if (this.getTableHandlers.editCellHandler) {
+        this.getTableHandlers.editCellHandler(args);
         return;
       }
       this.editCell({ columnName: args.columnName, value: args.value, rowIndex: this.rowIndex });
