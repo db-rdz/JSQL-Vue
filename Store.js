@@ -81,10 +81,21 @@ const store = {
       const index = state.selectedRows.indexOf(rowIndex);
       if (index !== -1) { // If row index is found to be in the selected rows array then...
         // Delete that index from the selected rows array.
-        state.selectedRows.splice(rowIndex, 1);
+        state.selectedRows.splice(index, 1);
       } else {
         // If not then you need to add it to the selected rows array.
         state.selectedRows.push(rowIndex);
+      }
+    },
+    toggleColumnSelection(state, columnIndex) {
+      const foundAtIndex = this.getSelectedColumns.indexOf(columnIndex);
+      // If column index is found to be in the selected columna array then...
+      if (foundAtIndex !== -1) { 
+        // Delete that index from the selected columna array.
+        this.getSelectedColumns.splice(this.foundAtIndex, 1);
+      } else {
+        // If not then you need to add it to the selected columna array.
+        this.getSelectedColumns.push(this.column.index);
       }
     },
     toggleShowRowSelectionBox(state) {

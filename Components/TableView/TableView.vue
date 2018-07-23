@@ -1,8 +1,7 @@
 <template>
   <div>
     <h3 class="ui top attached header">
-      <span v-if="!editingTableName" @dblclick="toggleTableNameEditing"> {{ getTableName }} </span>
-      <input v-if="editingTableName" @blur="toggleTableNameEditing" @change="handleTableNameEditing" type="text" class="ui input" :value="getTableName"/>
+      <editable-div @change="handleTableNameEditing" :value="getTableName"></editable-div>
     </h3>
     <table-menu v-bind="options" class="attached"></table-menu>
     <filter-label-row></filter-label-row>
@@ -17,13 +16,14 @@
 /* global $ */
 
 import { mapGetters, mapMutations } from 'vuex';
+import EditableDiv from '../Forms/EditableDiv/EditableDiv.vue';
 import TableMenu from './TableMenu/TableMenu.vue';
 import FilterLabelRow from './FilterLabelRow/FilterLabelRow.vue';
 import DataTable from './DataTable/DataTable.vue';
 
 export default {
   name: 'TableView',
-  components: { TableMenu, FilterLabelRow, DataTable },
+  components: { EditableDiv, TableMenu, FilterLabelRow, DataTable },
   props: {
     name: {
       default: '',
@@ -33,22 +33,11 @@ export default {
       default() { return {}; },
     },
   },
-  data() {
-    return {
-      editingTableName: false,
-    };
-  },
   methods: {
     ...mapMutations('JSQL', [
       'editTableName',
     ]),
-    toggleTableNameEditing() {
-      if (this.getTable.options.allowTableNameEditing) {
-        this.editingTableName = !this.editingTableName;
-      }
-    },
-    handleTableNameEditing(e) {
-      const name = e.target.value;
+    handleTableNameEditing(name) {
       if (this.options && this.getTableHandlers.editTableNameHandler) {
         this.options.editTableNameHandler(name);
       } else {

@@ -60,9 +60,9 @@
     </div>
 
     <button class="ui secondary button" @click="goBack">
-      Go Back
+      Cancel
     </button>
-    <button class="ui primary button" @click="takeAction"> Save/Create Filter </button>
+    <button class="ui primary button" @click="takeAction"> {{ SubmitButtonText }} Filter </button>
 
   </div>
 </template>
@@ -156,7 +156,7 @@ export default {
         args = [args, this.$refs['argument-2'][1].value];
       }
 
-      const filterParams = {
+      const filterArgs = {
         tag: filterTag,
         targetColumn,
         filterFunction,
@@ -165,15 +165,17 @@ export default {
 
       if (Object.keys(this.filter).length === 0) {
         if (this.getTableHandlers.createFilterHandler) {
-          this.getTableHandlers.createFilterHandler(filterParams);
+          this.getTableHandlers.createFilterHandler(filterArgs);
         } else {
-          this.createFilter(filterParams);
+          this.createFilter(filterArgs);
         }
       } else if (this.getTableHandlers.editFilterHandler) {
-        this.getTableHandlers.createFilterHandler(filterParams);
+        this.getTableHandlers.createFilterHandler(filterArgs);
       } else {
-        this.editFilter(filterParams);
+        this.editFilter({ currentFilterTag: this.filter.tag, filterArgs });
       }
+
+      this.goBack();
     },
     ...mapMutations('JSQL', [
       'createFilter',
@@ -204,6 +206,12 @@ export default {
           return 1;
         }
       }
+    },
+    SubmitButtonText() {
+      if (Object.keys(this.filter).length > 0) {
+        return 'Edit';
+      }
+      return 'Create';
     },
   },
   created() {

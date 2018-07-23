@@ -1,13 +1,15 @@
 <template>
   <th  @dblclick="toggleColumnNameEditing">
     <div v-if="getShowColumnSelectionBox" class="ui fitted checkbox">
-      <input @change="toggleColumnSelection" type="checkbox" tabindex="0" class="hidden">
+      <input @change="toggleColumnSelection" type="checkbox" tabindex="0" >
       <label></label>
     </div>
-    <editable-div
-      @change="handleColumnNameEdit"
-      :value="column.name"
-    ></editable-div>
+    <b>
+      <editable-div
+        @change="handleColumnNameEdit"
+        :value="column.name"
+      ></editable-div>
+    </b>
   </th>
 </template>
 
@@ -53,15 +55,6 @@ export default {
       'editColumnName',
     ]),
     toggleColumnSelection() {
-      const foundAtIndex = this.getSelectedColumns.indexOf(this.column.index);
-      // If column index is found to be in the selected columna array then...
-      if (foundAtIndex !== -1) {
-        // Delete that index from the selected columna array.
-        this.getSelectedColumns.splice(this.column.index, 1);
-      } else {
-        // If not then you need to add it to the selected columna array.
-        this.getSelectedColumns.push(this.column.index);
-      }
     },
     toggleColumnNameEditing() {
       this.editingColumnName = !this.editingColumnName;

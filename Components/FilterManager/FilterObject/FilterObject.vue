@@ -1,7 +1,6 @@
 <template>
   <div class="ui form">
     <div class="field">
-      <span v-if="filter.status"> ACTIVE </span>
       <a class="item pointer" @click="editFilter" ><i class="cog icon"></i></a>
       <div class="ui icon toggle checkbox" >
         <input @change="toggleFilter(filter)" type="checkbox" :checked="filter.status">

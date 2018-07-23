@@ -1,7 +1,7 @@
 <template>
   <tr>
     <keep-alive>
-      <td v-if="getShowRowSelectionBox">
+      <td v-if="getShowRowSelectionBox" class="collapsing" >
         <div class="ui fitted checkbox" :id="`checkbox-${rowIndex}`">
           <input @change="toggleRowSelection(rowIndex)" type="checkbox" tabindex="0" :checked="isSelected">
           <label></label>
@@ -18,7 +18,6 @@
 </template>
 
 <script>
-/* global $ */
 import { mapGetters, mapMutations } from 'vuex';
 import TableCell from './TableCell/TableCell.vue';
 
@@ -37,10 +36,8 @@ export default {
     },
   },
   updated() {
-    $(`#checkbox-${this.rowIndex}`).checkbox();
   },
   mounted() {
-    $(`#checkbox-${this.rowIndex}`).checkbox();
   },
   computed: {
     ...mapGetters('JSQL', [

@@ -114,16 +114,16 @@ V1
 - [ ] Adding
   - [x] Adding Columns
   - [x] Adding Rows
-  - [x] Adding Filters // Have some issues
+  - [x] Adding Filters
 - [ ] Deleting
   - [ ] Deleting Columns
   - [x] Deleting Rows
   - [x] Deleting Filters
 - [ ] Editing
-  - [ ] Edit Table Title
+  - [x] Edit Table Title
   - [x] Edit Cells // Have some issues
-  - [ ] Edit Columns
-  - [ ] Edit Filters
+  - [x] Edit Columns
+  - [x] Edit Filters
 - [ ] Filtering // Has some issues
 - [ ] Search
   - [x] Search Table

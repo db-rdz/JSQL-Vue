@@ -1,7 +1,7 @@
 <template>
   <thead>
     <tr>
-      <th v-if="getShowRowSelectionBox">
+      <th v-if="getShowRowSelectionBox" class="one wide">
         <a @click="handleSelectActionTrigger" href="#">
           {{ getSelectActionText }}
         </a>

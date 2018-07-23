@@ -1,23 +1,17 @@
-  <template>
+<template>
   <div class="ui form">
     <div class="field">
-      <div @dblclick="toggleInputField" v-if="!showInputField">
-        <span>{{value}}</span>
-      </div>
-      <div class="ui" :class="inputWrapperClass" v-if="showInputField">
-        <input ref="inputField"
-          @change="updateField"
-          @blur="toggleInputField"
-          :type="columnType" tabindex="0" class="hidden" :value="value">
-        <label></label>
-      </div>
+      <editable-div @change="updateField" :value="value" :type="columnType"></editable-div>
     </div>
   </div>
 </template>
 
 <script>
+import EditableDiv from '../../../../../Forms/EditableDiv/EditableDiv.vue';
+
 export default {
   name: 'TableCell',
+  components: { EditableDiv },
   props: {
     columnType: {
       type: String,
@@ -29,11 +23,6 @@ export default {
       type: String,
     },
   },
-  data() {
-    return {
-      showInputField: false,
-    };
-  },
   computed: {
     inputWrapperClass() {
       return '';
@@ -43,11 +32,8 @@ export default {
     },
   },
   methods: {
-    toggleInputField() {
-      this.showInputField = !this.showInputField;
-    },
-    updateField(event) {
-      this.$emit('change', { columnName: this.columnName, value: event.target.value });
+    updateField(value) {
+      this.$emit('change', { columnName: this.columnName, value });
     },
   },
   updated() {

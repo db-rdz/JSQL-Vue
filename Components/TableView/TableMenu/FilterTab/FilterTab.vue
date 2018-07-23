@@ -1,7 +1,6 @@
 <template>
   <div style="display: inline;" v-if="canUseMainMenuItem">
     <filter-manager-modal id='filter-manager'
-      :filterManager="getTableFilterManager"
     ></filter-manager-modal>
     <a :class="{ 'disabled': !isFilterItemValid }"
       class="item" @click="openFilterManager" style="float: left;">
