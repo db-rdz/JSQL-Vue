@@ -1,0 +1,30 @@
+{
+  "name": "jsql-smarttable-vue",
+  "version": "1.0.4",
+  "description": "Vue.js version of jsql-smarttable",
+  "main": "SmartTable.vue",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/db-rdz/JSQL-Vue.git"
+  },
+  "keywords": [
+    "jsql",
+    "smart",
+    "table",
+    "vue"
+  ],
+  "author": "Daniel B. Rodriguez Ortega",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/db-rdz/JSQL-Vue/issues"
+  },
+  "homepage": "https://github.com/db-rdz/JSQL-Vue#readme",
+  "dependencies": {
+    "jsql-smarttable": "^1.1.27",
+    "vue": "^2.5.16",
+    "vuex": "^3.0.1"
+  }
+}
